@@ -24,6 +24,8 @@ class Admin extends User {
   read: boolean = true;
   write: boolean = true;
   phone: string;
+  private _email: string = "";
+  static getRole = (): string => "Admin";
 
   constructor(name: string, age: number, phone: string) {
     super(name, age);
@@ -36,8 +38,29 @@ class Admin extends User {
       read: this.read
     };
   }
+
+  set email(value: string) {
+    // validator
+    if (value.length < 5) {
+      // just for example
+      this._email = "kurang panjang dude";
+    } else {
+      this._email = value;
+    }
+  }
+
+  get email(): string {
+    return this._email;
+  }
 }
 
 const admin = new Admin("Budi", 30, "0812345");
+admin.email = "admin@budi.com";
+
 console.log(admin);
 console.log(admin.getName());
+console.log(admin.email);
+
+// for static method
+// const admin = Admin.getRole();
+// console.log(admin);

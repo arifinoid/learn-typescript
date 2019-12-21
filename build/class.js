@@ -39,6 +39,7 @@ var Admin = /** @class */ (function (_super) {
         var _this = _super.call(this, name, age) || this;
         _this.read = true;
         _this.write = true;
+        _this._email = "";
         _this.phone = phone;
         return _this;
     }
@@ -48,8 +49,31 @@ var Admin = /** @class */ (function (_super) {
             read: this.read
         };
     };
+    Object.defineProperty(Admin.prototype, "email", {
+        get: function () {
+            return this._email;
+        },
+        set: function (value) {
+            // validator
+            if (value.length < 5) {
+                // just for example
+                this._email = "kurang panjang dude";
+            }
+            else {
+                this._email = value;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Admin.getRole = function () { return "Admin"; };
     return Admin;
 }(User));
 var admin = new Admin("Budi", 30, "0812345");
+admin.email = "admin@budi.com";
 console.log(admin);
 console.log(admin.getName());
+console.log(admin.email);
+// for static method
+// const admin = Admin.getRole();
+// console.log(admin);
